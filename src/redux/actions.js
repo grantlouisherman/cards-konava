@@ -8,10 +8,11 @@ export const createNewCardItem = (type, shapeAttributes) => ({
   }
 });
 
-export const updateCardItem = () => ({
+export const updateCardItem = (id, shapeAttributes) => ({
   type: UPDATE_ITEM,
   payload: {
-
+    id,
+    shapeAttributes
   }
 })
 

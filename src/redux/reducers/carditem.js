@@ -5,11 +5,14 @@ const initialState = { cardItems: [] };
 export default (state=initialState, action) => {
   switch(action.type){
     case CREATE_NEW_ITEM:
-      const id = state.cardItems.length;
-      state.cardItems.push({ id, ...action.payload });
+      state.cardItems.push({ id: state.cardItems.length, ...action.payload });
       return Object.assign({}, state);
     case UPDATE_ITEM:
-    return state;
+      const { id, shapeAttributes } = action.payload;
+      const targetUpdatedItem = state.cardItems[id];
+      state.cardItems[id] = { ...targetUpdatedItem, ...shapeAttributes}
+      console.log(state.cardItems[id])
+      return Object.assign({}, state);;
     case CURRENTLY_SELECTED_ITEM:
     return state;
     default:
