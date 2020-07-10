@@ -1,23 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Rect, Text, Transformer } from "react-konva";
+import React, { useState, useRef } from "react";
+import { Text } from "react-konva";
 
-const CardComponentText = (posX, posY, width, height, text, name) => {
+const CardComponentText = ({ shapeAttributes: { posX, posY, width, height }, text, id, type}) => {
   const shapeRef = useRef();
-  const [ shapeAttributes, setShapeAttributes] = useState({posX:50, posY:50, width: 50, height: 100})
   return (
     <Text
-      id={`${"text"}`}
-      x={shapeAttributes.posX}
-      y={shapeAttributes.posY}
+      id={`${id}`}
+      x={width}
+      y={height}
       text={text}
-      name={name}
+      name={`${type}-${id}`}
       draggable
       onDragEnd = { (e) => {
         const posX = e.target.x()
         const posY = e.target.y()
         const width = shapeRef && shapeRef.current && shapeRef.current.scaleX();
         const height = shapeRef && shapeRef.current && shapeRef.current.scaleY();
-        setShapeAttributes({ posX, posY, width, height });
+        // setShapeAttributes({ posX, posY, width, height });
       }}
       />
   )

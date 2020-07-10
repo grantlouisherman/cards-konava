@@ -7,7 +7,6 @@ export default (state=initialState, action) => {
     case CREATE_NEW_ITEM:
       const id = state.cardItems.length;
       state.cardItems.push({ id, ...action.payload });
-      console.log(state)
       return Object.assign({}, state);
     case UPDATE_ITEM:
     return state;

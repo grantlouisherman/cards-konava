@@ -16,7 +16,7 @@ class TransformerComponent extends React.Component {
       return;
     }
     if (selectedNode) {
-      this.transformer.attachTo(selectedNode);
+      this.transformer.nodes([selectedNode]);
     } else {
       this.transformer.detach();
     }

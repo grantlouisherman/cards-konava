@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Stage, Layer, Rect, Text } from 'react-konva';
+import React, { useState, useEffect } from 'react';
+import { Stage, Layer } from 'react-konva';
 import { connect } from "react-redux";
 
 import { createNewCardItem } from '../redux/actions';
@@ -8,23 +8,28 @@ import TransformerComponent from './TransformerComponent';
 import ShapeMenu from './ShapeMenu';
 import CardComponentText  from './CardComponentText';
 import CardComponentImage from './CardComponentImage';
+
+
 const Canvas = (props) => {
-  const { createNewCardItem } = props;
-  const [ componentsToRender, setComponentsToRender ] = useState([]);
+  useEffect(() => {}, [props]);
+  
+  const { createNewCardItem, cardAttributes: { cardItems } } = props;
   const [ selectedShape, setSelectedShape ] = useState("");
-  const id = componentsToRender.length+1;
+
   const setCurrentShape = (e) => {
     setSelectedShape(e.target.name());
   };
+
   const handleMenuClick = (e, type) => {
     createNewCardItem(type, {posX:50, posY:50, width: 50, height: 100})
-    let componentToAdd = type === 'text' ?
-    <CardComponentText key={`${id}-${type}`} name={`${id}-${type}`} text="hi" /> :
-    <CardComponentImage key={`${id}-${type}`} />;
-
-
-    setComponentsToRender([componentToAdd, ...componentsToRender])
   };
+
+  const componentMapper = (componentProps) => {
+    const { type } = componentProps;
+    return type === 'text' ?
+    <CardComponentText {...componentProps} text={"hi"} /> :
+    <CardComponentImage {...componentProps} />;
+  }
 
   return ([
     <ShapeMenu onClick={handleMenuClick.bind(this)} />,
@@ -34,7 +39,7 @@ const Canvas = (props) => {
        onClick={setCurrentShape}
        >
       <Layer>
-      { componentsToRender.map(componentToRender => componentToRender)}
+      { cardItems.length > 0 && cardItems.map(componentMapper)}
       <TransformerComponent
             selectedShapeName={selectedShape}
           />
@@ -70,4 +75,7 @@ const Canvas = (props) => {
 //
 //  );
 // }
-export default connect(null, { createNewCardItem })(Canvas);
+const mapStateToProps = state => ({
+  cardAttributes: state.cardItems
+})
+export default connect(mapStateToProps , { createNewCardItem })(Canvas);
