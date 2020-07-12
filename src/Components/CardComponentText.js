@@ -12,15 +12,18 @@ const CardComponentText = ({
       id={`${id}`}
       x={posX}
       y={posY}
+      width={width}
+      height={height}
+      ref={shapeRef}
       text={text}
       name={`${type}-${id}`}
       draggable
       onDragEnd = { (e) => {
+        console.log(shapeRef)
         const posX = e.target.x()
         const posY = e.target.y()
-        const width = e.target.width();
-        const height = e.target.height();
-        console.log(width, height)
+        const height = shapeRef.current.textHeight;
+        const width = shapeRef.current.textWidth;
         updateCardItem(id, { shapeAttributes: {posX, posY, width, height } });
       }}
       />
