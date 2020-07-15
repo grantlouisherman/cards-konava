@@ -19,7 +19,6 @@ const CardComponentText = ({
       name={`${type}-${id}`}
       draggable
       onDragEnd = { (e) => {
-        console.log(shapeRef)
         const posX = e.target.x()
         const posY = e.target.y()
         const height = shapeRef.current.textHeight;

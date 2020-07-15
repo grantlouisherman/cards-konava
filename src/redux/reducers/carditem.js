@@ -11,7 +11,6 @@ export default (state=initialState, action) => {
       const { id, shapeAttributes } = action.payload;
       const targetUpdatedItem = state.cardItems[id];
       state.cardItems[id] = { ...targetUpdatedItem, ...shapeAttributes}
-      console.log(state.cardItems[id])
       return Object.assign({}, state);;
     case CURRENTLY_SELECTED_ITEM:
     return state;
