@@ -16,9 +16,9 @@ export const updateCardItem = (id, shapeAttributes) => ({
   }
 })
 
-export const currentlySelectedCardItem = () => ({
+export const currentlySelectedCardItem = currentShape => ({
   type: CURRENTLY_SELECTED_ITEM,
   payload: {
-
+    currentShape
   }
 })

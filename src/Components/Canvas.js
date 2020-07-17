@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { connect } from "react-redux";
 
-import { createNewCardItem, updateCardItem } from '../redux/actions';
+import { createNewCardItem, updateCardItem, currentlySelectedCardItem } from '../redux/actions';
 
 import TransformerComponent from './TransformerComponent';
 import ShapeMenu from './ShapeMenu';
@@ -14,11 +14,14 @@ import DownloadButton from './DownloadButton';
 const Canvas = (props) => {
   useEffect(() => {}, [props]);
   const [ stageNode, setStageNode ] = useState();
-  const { createNewCardItem, updateCardItem, cardAttributes: { cardItems } } = props;
-  const [ selectedShape, setSelectedShape ] = useState("");
+  const {
+    createNewCardItem,
+    updateCardItem,
+    currentlySelectedCardItem,
+    cardAttributes: { cardItems, currentShape } } = props;
 
   const setCurrentShape = (e) => {
-    setSelectedShape(e.target.name());
+    currentlySelectedCardItem(e.target.name());
   };
 
   const handleMenuClick = (e, type) => {
@@ -31,6 +34,7 @@ const Canvas = (props) => {
     <CardComponentText {...componentProps} updateCardItem={updateCardItem} text={"hi"} /> :
     <CardComponentImage {...componentProps} updateCardItem={updateCardItem} />;
   }
+
   return ([
     <ShapeMenu onClick={handleMenuClick.bind(this)} />,
     <DownloadButton stageNode={stageNode} />,
@@ -43,7 +47,7 @@ const Canvas = (props) => {
       <Layer>
       { cardItems.length > 0 && cardItems.map(componentMapper)}
       <TransformerComponent
-            selectedShapeName={selectedShape}
+            selectedShapeName={currentShape}
           />
       </Layer>
     </Stage>
@@ -52,6 +56,6 @@ const Canvas = (props) => {
 }
 
 const mapStateToProps = state => ({
-  cardAttributes: state.cardItems
+  cardAttributes: state.cardItems,
 })
-export default connect(mapStateToProps , { createNewCardItem, updateCardItem })(Canvas);
+export default connect(mapStateToProps , { createNewCardItem, updateCardItem, currentlySelectedCardItem })(Canvas);

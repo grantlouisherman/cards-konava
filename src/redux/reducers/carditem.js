@@ -13,7 +13,7 @@ export default (state=initialState, action) => {
       state.cardItems[id] = { ...targetUpdatedItem, ...shapeAttributes}
       return Object.assign({}, state);;
     case CURRENTLY_SELECTED_ITEM:
-    return state;
+    return Object.assign({}, state, {...action.payload});
     default:
     return state;
   }

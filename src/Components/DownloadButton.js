@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 
 const DownloadButton = ({ stageNode }) => {
-  useEffect(() => {}, stageNode);
+  useEffect(() => {}, [stageNode]);
   const onClickHandler = (evt) => {
     const link = document.createElement("a");
     link.download = "name";
