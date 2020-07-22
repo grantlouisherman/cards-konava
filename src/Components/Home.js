@@ -1,11 +1,13 @@
 import React from 'react';
 
+import Nav from './Nav';
 
 const Home = ()=> {
   return (
-    <div>
-    Hello
-    </div>
+    [
+      <Nav/>,
+      <div> Home </div>
+    ]
   )
 }
 
