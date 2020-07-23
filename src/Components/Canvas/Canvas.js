@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Stage, Layer } from "react-konva";
 import { connect } from "react-redux";
-
-
+import styled from 'styled-components'
 
 import { CenterContent } from "../../utils";
-
 import TransformerComponent from "./TransformerComponent";
 import ShapeMenu from "../ShapeMenu";
 import DownloadButton from "../DownloadButton";
@@ -22,32 +20,39 @@ const Canvas = ({
   width,
   height
 }) => {
-  const style = {
+  const stageStyle = {
     "border-style": "solid",
     width: width,
     height: height,
     margin: "0 auto"
   };
-
+  
+  const CanvasStyle = styled.div`
+    text-align: center
+    border-style: solid
+    height: ${height}
+    width: ${width}
+    margin: 0 auto
+  `;
   return (
     <CenterContent>
       <Nav />
       <ShapeMenu onClick={handleMenuClick} />
       <DownloadButton stageNode={stageNode} />
-      <div style={style}>
+      <CanvasStyle>
         <Stage
           width={400}
           height={400}
           onClick={setCurrentShape}
           ref={setStageNode}
-          style={style}
+          style={stageStyle}
         >
           <Layer>
             {cardItems && cardItems.length > 0 && cardItems.map(componentMapper)}
             <TransformerComponent selectedShapeName={currentShape} />
           </Layer>
         </Stage>
-      </div>
+      </CanvasStyle>
     </CenterContent>
   );
 };
