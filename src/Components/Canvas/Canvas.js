@@ -8,6 +8,7 @@ import TransformerComponent from "./TransformerComponent";
 import ShapeMenu from "../ShapeMenu";
 import DownloadButton from "../DownloadButton";
 import Nav from "../Nav";
+import '../../index.css';
 
 const Canvas = ({
   handleMenuClick,
@@ -20,40 +21,32 @@ const Canvas = ({
   width,
   height
 }) => {
-  const stageStyle = {
-    "border-style": "solid",
+  const SetWidthAndHeight = {
     width: width,
     height: height,
-    margin: "0 auto"
-  };
+  }
   
-  const CanvasStyle = styled.div`
-    text-align: center
-    border-style: solid
-    height: ${height}
-    width: ${width}
-    margin: 0 auto
-  `;
   return (
-    <CenterContent>
+    <div style={CenterContent}>
       <Nav />
       <ShapeMenu onClick={handleMenuClick} />
       <DownloadButton stageNode={stageNode} />
-      <CanvasStyle>
+      <div className='canvas' style={SetWidthAndHeight}>
         <Stage
-          width={400}
-          height={400}
+          width={width}
+          height={height}
           onClick={setCurrentShape}
           ref={setStageNode}
-          style={stageStyle}
+          className='stage'
+          style={SetWidthAndHeight}
         >
           <Layer>
             {cardItems && cardItems.length > 0 && cardItems.map(componentMapper)}
             <TransformerComponent selectedShapeName={currentShape} />
           </Layer>
         </Stage>
-      </CanvasStyle>
-    </CenterContent>
+      </div>
+    </div>
   );
 };
 

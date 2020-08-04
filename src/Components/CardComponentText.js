@@ -7,6 +7,15 @@ const CardComponentText = ({
   updateCardItem
   }) => {
   const shapeRef = useRef();
+  var one = document.querySelector( ".konvajs-content" );
+  const ITEM = one && one.getBoundingClientRect();
+  const resize = e => {
+    const posX = e.target.x()
+    const posY = e.target.y()
+    const height = shapeRef.current.textHeight;
+    const width = shapeRef.current.textWidth;
+    updateCardItem(id, { shapeAttributes: {posX, posY, width, height } });
+  }
   return (
     <Text
       id={`${id}`}
@@ -18,13 +27,8 @@ const CardComponentText = ({
       text={text}
       name={`${type}-${id}`}
       draggable
-      onDragEnd = { (e) => {
-        const posX = e.target.x()
-        const posY = e.target.y()
-        const height = shapeRef.current.textHeight;
-        const width = shapeRef.current.textWidth;
-        updateCardItem(id, { shapeAttributes: {posX, posY, width, height } });
-      }}
+      onClick={resize }
+      onDragEnd={resize}
       />
   )
 };

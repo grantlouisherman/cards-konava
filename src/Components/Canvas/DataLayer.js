@@ -53,7 +53,9 @@ const DataLayer = (props) => {
     width,
     height,
     cardItems,
-    currentShape
+    currentShape,
+    setStageNode,
+    stageNode,
   }
   return (
     <Canvas {...CanvasProps} />

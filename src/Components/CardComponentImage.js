@@ -6,9 +6,10 @@ import useImage from 'use-image';
 
 const CardComponentImage = () => {
   const shapeRef = useRef();
+  const [ imgNode, setImgNode ] = useState('');
+  console.log(imgNode)
   const [ shapeAttributes, setShapeAttributes] = useState({posX:50, posY:50, width: 50, height: 100})
-  const [image] = useImage('https://konvajs.org/assets/lion.png');
-
+  const [image] = useImage('https://konvajs.org/assets/lion.png', 'Anonymous');
   return (
     <Image
       image={image}
@@ -23,6 +24,7 @@ const CardComponentImage = () => {
         const height = shapeRef && shapeRef.current && shapeRef.current.scaleY();
         setShapeAttributes({ posX, posY, width, height });
       }}
+      ref={setImgNode}
     />
   )
 };
