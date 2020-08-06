@@ -8,6 +8,7 @@ import TransformerComponent from "./TransformerComponent";
 import ShapeMenu from "../ShapeMenu";
 import DownloadButton from "../DownloadButton";
 import Nav from "../Nav";
+import EditorPanel from "../EditorPanel";
 import '../../index.css';
 
 const Canvas = ({
@@ -25,8 +26,7 @@ const Canvas = ({
     width: width,
     height: height,
   }
-  
-  return (
+  return [
     <div style={CenterContent}>
       <Nav />
       <ShapeMenu onClick={handleMenuClick} />
@@ -46,8 +46,11 @@ const Canvas = ({
           </Layer>
         </Stage>
       </div>
-    </div>
-  );
+    </div>,
+    <EditorPanel />
+  ]
+
+
 };
 
 export default Canvas;

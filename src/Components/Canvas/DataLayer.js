@@ -24,7 +24,7 @@ const DataLayer = (props) => {
   } = props;
 
   const setCurrentShape = (e) => {
-    currentlySelectedCardItem(e.target.name());
+    currentlySelectedCardItem(e.target.name(), e.target.id());
   };
 
   const handleMenuClick = (e, type) => {
