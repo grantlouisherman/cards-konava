@@ -7,11 +7,11 @@ import {
   currentlySelectedCardItem,
 } from "../../redux/actions";
 
-import { inchesToPixelConverter, CenterContent } from "../../utils";
+import { inchesToPixelConverter } from "../../utils";
 
 import Canvas from './Canvas';
-import CardComponentText from "../CardComponentText";
-import CardComponentImage from "../CardComponentImage";
+import CardComponentText from "./CanvasComponents/CardComponentText";
+import CardComponentImage from "./CanvasComponents/CardComponentImage";
 
 const DataLayer = (props) => {
   useEffect(() => {}, [props.cardAttributes]);
@@ -27,8 +27,9 @@ const DataLayer = (props) => {
     currentlySelectedCardItem(e.target.name(), e.target.id());
   };
 
-  const handleMenuClick = (e, type) => {
-    createNewCardItem(type, { posX: 50, posY: 50, width: 50, height: 100 });
+  const handleMenuClick = (e) => {
+    console.log(e.target.id)
+    createNewCardItem(e.target.id, { posX: 50, posY: 50, width: 50, height: 100 });
   };
 
   const componentMapper = (componentProps) => {

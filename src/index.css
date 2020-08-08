@@ -21,3 +21,12 @@ code {
   border-style: solid;
   margin: 0 auto;
 }
+
+.center {
+  text-align: 'center';
+}
+
+.editor {
+  float:left;
+  margin-top: 100px;
+}
