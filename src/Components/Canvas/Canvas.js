@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Stage, Layer } from "react-konva";
-import { connect } from "react-redux";
-import styled from "styled-components";
 
-import { CenterContent } from "../../utils";
 import TransformerComponent from "./TransformerComponent";
 import ShapeMenu from "../ShapeMenu";
 import DownloadButton from "../DownloadButton";
@@ -21,6 +18,7 @@ const Canvas = ({
   currentShape,
   width,
   height,
+  handleEditorPanelUpdate,
 }) => {
   const SetWidthAndHeight = {
     width: width,
@@ -28,7 +26,7 @@ const Canvas = ({
   };
   return [
     <div className="ui centered grid">
-      <EditorPanel />
+      <EditorPanel handleEditorPanelUpdate={handleEditorPanelUpdate}/>
       <div className="six wide tablet six wide computer column">
         <Nav />
         <ShapeMenu onClick={handleMenuClick} />

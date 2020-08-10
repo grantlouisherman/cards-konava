@@ -14,7 +14,8 @@ import CardComponentText from "./CanvasComponents/CardComponentText";
 import CardComponentImage from "./CanvasComponents/CardComponentImage";
 
 const DataLayer = (props) => {
-  useEffect(() => {}, [props.cardAttributes]);
+  const [ update, setUpdate ] = useState(false);
+  useEffect(() => {}, [props.cardAttributes, update]);
   const [stageNode, setStageNode] = useState();
   const {
     createNewCardItem,
@@ -28,20 +29,24 @@ const DataLayer = (props) => {
   };
 
   const handleMenuClick = (e) => {
-    console.log(e.target.id)
-    createNewCardItem(e.target.id, { posX: 50, posY: 50, width: 50, height: 100 });
+    createNewCardItem(e.target.innerText, { posX: 50, posY: 50, width: 50, height: 100 });
   };
 
+  const handleEditorPanelUpdate = (id, payload) => {
+    updateCardItem(id, payload);
+    setUpdate(!update);
+  };
   const componentMapper = (componentProps) => {
-    const { type } = componentProps;
-    return type === "text" ? (
+    const { type, id } = componentProps;
+    return type.toLowerCase() === "text" ? (
       <CardComponentText
+        key={id}
         {...componentProps}
         updateCardItem={updateCardItem}
-        text={"hi"}
+        text={componentProps.shapeAttributes.text ? componentProps.shapeAttributes.text : 'placeholder'}
       />
     ) : (
-      <CardComponentImage {...componentProps} updateCardItem={updateCardItem} />
+      <CardComponentImage key={id} {...componentProps} updateCardItem={updateCardItem} />
     );
   };
 
@@ -57,6 +62,8 @@ const DataLayer = (props) => {
     currentShape,
     setStageNode,
     stageNode,
+    handleEditorPanelUpdate: handleEditorPanelUpdate.bind(this),
+    update,
   }
   return (
     <Canvas {...CanvasProps} />
