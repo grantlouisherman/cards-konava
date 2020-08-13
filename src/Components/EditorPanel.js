@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "../index.css";
 
 const EditorPanel = ({ cardItemsState, handleEditorPanelUpdate }) => {
-  const { cardItems, id } = cardItemsState;
+  const { cardItems, id, currentShape } = cardItemsState;
   const currentData = cardItems.find((item) => item.id == id);
   const createEditorPanel = () =>
     Object.keys(currentData.shapeAttributes).map((shapeKey) => (
@@ -20,14 +20,14 @@ const EditorPanel = ({ cardItemsState, handleEditorPanelUpdate }) => {
         />
       </div>
     ));
-  if (!currentData) {
+  if (!currentData || !currentShape) {
     return (
       <form class="ui form editor">
         <h2 className="ui header">Editor Panel</h2>
         {["posX", "posY", "width", "height"].map((fieldName) => (
           <div className="field">
             <label>{fieldName}</label>
-            <input key={fieldName} type="number" />
+            <input key={fieldName} type="number" disabled />
           </div>
         ))}
       </form>

@@ -29,6 +29,7 @@ const CardComponentText = ({
       draggable
       onClick={resize }
       onDragEnd={resize}
+      onTransformEnd={resize}
       />
   )
 };
