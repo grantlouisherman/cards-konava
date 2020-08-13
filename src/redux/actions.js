@@ -2,6 +2,7 @@ import {
   CREATE_NEW_ITEM,
   UPDATE_ITEM,
   CURRENTLY_SELECTED_ITEM,
+  DELETE_SHAPE,
 } from "./actionTypes";
 
 export const createNewCardItem = (type, shapeAttributes) => ({
@@ -27,3 +28,10 @@ export const currentlySelectedCardItem = (currentShape, id) => ({
     id,
   },
 });
+
+export const deleteShape = id => ({
+  type: DELETE_SHAPE,
+  payload: {
+    id
+  }
+})

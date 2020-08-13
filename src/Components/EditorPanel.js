@@ -1,10 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import "../index.css";
 
-const EditorPanel = ({ cardItemsState, handleEditorPanelUpdate }) => {
+import "../index.css";
+import { deleteShape } from '../redux/actions';
+import { renderAnimatedButton } from "../utils";
+
+const EditorPanel = ({ cardItemsState, handleEditorPanelUpdate, deleteShape }) => {
   const { cardItems, id, currentShape } = cardItemsState;
-  const currentData = cardItems.find((item) => item.id == id);
+  const currentData = cardItems && cardItems.find((item) => item.id == id);
   const createEditorPanel = () =>
     Object.keys(currentData.shapeAttributes).map((shapeKey) => (
       <div className="field">
@@ -20,6 +23,7 @@ const EditorPanel = ({ cardItemsState, handleEditorPanelUpdate }) => {
         />
       </div>
     ));
+
   if (!currentData || !currentShape) {
     return (
       <form class="ui form editor">
@@ -33,10 +37,20 @@ const EditorPanel = ({ cardItemsState, handleEditorPanelUpdate }) => {
       </form>
     );
   }
+
+  const onClick = e => {
+    deleteShape(parseInt(id))
+  }
   return (
     <form class="ui form editor">
       <h2 className="ui header">Editor Panel</h2>
       {createEditorPanel()}
+      <div id={id} class="ui vertical animated button" tabindex="0" onClick={onClick}>
+        <div class="hidden content">Delete Shape</div>
+        <div class="visible content">
+          <i class="trash icon"></i>
+        </div>
+      </div>
     </form>
   );
 };
@@ -45,4 +59,4 @@ const mapStateToProps = (state) => ({
   cardItemsState: state.cardItems,
 });
 
-export default connect(mapStateToProps, null)(EditorPanel);
+export default connect(mapStateToProps, { deleteShape })(EditorPanel);
